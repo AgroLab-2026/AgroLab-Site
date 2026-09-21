@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroLab AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Barra de progresso de rolagem -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img class="logo-icon" src="assets/Logo.png" alt="AgroLab">
+                <h1>AgroLab</h1>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li class="nav-item"><a href="#home">Início</a></li>
+                <li class="nav-item"><a href="#sobre">Sobre</a></li>
+                <li class="nav-item"><a href="#como-funciona">Como Funciona</a></li>
+                <li class="nav-item"><a href="#objetivos">Objetivos</a></li>
+                <li class="nav-item"><a href="#historia">História</a></li>
+                <li class="nav-item"><a href="#equipe">Equipe</a></li>
+                <li class="nav-item"><a href="#cronograma">Cronograma</a></li>
+                <li class="nav-item"><a href="#contato">Contato</a></li>
+            </ul>
+            <div class="hamburger" id="hamburgerBtn">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="wave-decor" aria-hidden="true">
+            <div class="wave-top-right">
+                <video muted loop playsinline preload="auto" style="display:none">
+                    <source src="assets/wave-top-right.webm" type="video/webm">
+                    <source src="assets/wave-top-right.mp4" type="video/mp4">
+                </video>
+                <canvas class="wave-canvas" width="320" height="320"></canvas>
+            </div>
+            <div class="wave-bottom-left">
+                <video muted loop playsinline preload="auto" style="display:none">
+                    <source src="assets/wave-bottom-left.webm" type="video/webm">
+                    <source src="assets/wave-bottom-left.mp4" type="video/mp4">
+                </video>
+                <canvas class="wave-canvas" width="320" height="320"></canvas>
+            </div>
+        </div>
+        <div class="container">
+            <h1>AgroLab</h1>
+            <p class="tagline">Transformando decisões em colheitas com inteligência artificial aplicada à agricultura.</p>
+            <a href="#sobre" class="cta-button">Saiba mais</a>
+        </div>
+    </section>
+
+    <!-- Problema Section -->
+    <section id="problema" class="problema">
+        <div class="container">
+            <h2 class="section-title reveal">O Problema</h2>
+            <p class="section-subtitle reveal">E se fosse possível não apenas entender os problemas causados por eventos
+                climáticos extremos, como também experimentar soluções na prática? Eventos recentes mostram o tamanho do
+                desafio enfrentado pelo produtor rural:</p>
+            <div class="problema-grid reveal-stagger">
+                <div class="problema-card">
+                    <div class="valor">R$ 5,4 bi</div>
+                    <p>em prejuízos à agricultura familiar na região de Erechim/RS por mudanças climáticas.</p>
+                </div>
+                <div class="problema-card">
+                    <div class="valor">R$ 69 mi</div>
+                    <p>em prejuízos na agricultura de Capanema após seca severa, com apenas 16% da chuva esperada.</p>
+                </div>
+                <div class="problema-card">
+                    <div class="valor">R$ 60 mi</div>
+                    <p>em prejuízos na agricultura de Petrolândia causados por granizo, segundo a Epagri.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="about">
+        <div class="container">
+            <h2 class="section-title reveal">Sobre o AgroLab</h2>
+            <div class="about-content">
+                <div class="about-text reveal">
+                    <p>O <strong>AgroLab AI</strong> é um projeto de <strong>Iniciação Científica (IC)</strong> focado no
+                        desenvolvimento de um sistema integrado e gamificado de gestão agrícola. O objetivo é demonstrar
+                        como a inteligência artificial — alimentada por dados preditivos e variáveis ambientais — pode
+                        otimizar a tomada de decisões no manejo de culturas, superando a performance de decisões humanas
+                        tradicionais.</p>
+
+                    <p>Através de uma interface dinâmica, em estilo de jogo 2D, alimentada por uma API e por modelos de
+                        Machine Learning, o usuário assume o papel de agricultor e compete com uma IA autônoma para
+                        manter uma plantação saudável dentro de uma estufa inteligente.</p>
+
+                    <p><strong>[Espaço reservado para mais detalhes sobre o projeto, metodologia e resultados —
+                        adicione aqui.]</strong></p>
+                </div>
+                <div class="about-image reveal">
+                    <img src="./assets/estufa-inteligente.jpg" alt="Estufa inteligente do AgroLab">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona Section -->
+    <section id="como-funciona">
+        <div class="container">
+            <h2 class="section-title reveal">Como Funciona</h2>
+            <p class="section-subtitle reveal">O motor do sistema simula o dia a dia de uma estufa inteligente, colocando
+                lado a lado a decisão humana e a decisão da inteligência artificial.</p>
+            <div class="rules-grid reveal-stagger">
+                <div class="rule-card">
+                    <h3>🧑‍🌾 O Agricultor</h3>
+                    <p>O participante assume o papel do agricultor e precisa salvar uma plantação em um ambiente
+                        instável e desfavorável, tomando decisões diante de eventos inesperados.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>🌡️ As Variáveis</h3>
+                    <p>O jogador controla variáveis como temperatura, umidade e iluminação, tomando decisões em tempo
+                        real para manter a planta saudável.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>🤖 O Desafio</h3>
+                    <p>O participante compete com um sistema autônomo desenvolvido pela equipe, que também busca
+                        equilibrar o ambiente da melhor forma possível.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>📊 [Título editável]</h3>
+                    <p>[Espaço reservado para descrever outra regra, categoria de decisão ou funcionalidade do
+                        sistema.]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objetivos Section -->
+    <section id="objetivos" class="objetivos">
+        <div class="container">
+            <h2 class="section-title title reveal">Objetivos do Projeto</h2>
+            <div class="objetivos-grid reveal-stagger">
+                <div class="objetivo-card">
+                    <div class="objetivo-icon">🎯</div>
+                    <h3>Objetivo Principal</h3>
+                    <p>Provar empiricamente que a tomada de decisão baseada em modelos de Machine Learning maximiza a
+                        produtividade e previne riscos com mais eficácia do que a intuição humana.</p>
+                </div>
+                <div class="objetivo-card">
+                    <div class="objetivo-icon">🎮</div>
+                    <h3>Abordagem</h3>
+                    <p>Transformar dados, inteligência artificial e criatividade em uma experiência interativa e
+                        educativa, acessível a qualquer produtor ou estudante.</p>
+                </div>
+                <div class="objetivo-card">
+                    <div class="objetivo-icon">🌱</div>
+                    <h3>Impacto Esperado</h3>
+                    <p>Contribuir para uma agricultura mais eficiente, sustentável e acessível, mostrando na prática o
+                        valor da IA no campo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- História Section -->
+    <section class="page-section" id="historia">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title reveal">História do Projeto AgroLab</h2>
+            </div>
+            <ul class="timeline">
+                <li>
+                    <div class="timeline-image"><img class="rounded-circle img-fluid"
+                            src="./assets/historia-hardware.jpg" alt="Construção da estufa física" /></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>[Mês, Ano]</h4>
+                            <h4 class="subheading">Frente de Hardware — Construção da Estufa</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p class="text-muted">Início do desenvolvimento da parte física da estufa inteligente,
+                                estruturando a base para os sensores e o ambiente controlado.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="timeline-inverted">
+                    <div class="timeline-image"><img class="rounded-circle img-fluid"
+                            src="./assets/historia-ia.jpg" alt="Estudo de dados e inteligência artificial" /></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>[Mês, Ano]</h4>
+                            <h4 class="subheading">Frente de Inteligência Artificial — Estudo e Dados</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p class="text-muted">Definição das variáveis e dados necessários para que o sistema
+                                pudesse analisar o ambiente e recomendar ações.</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="timeline-image"><img class="rounded-circle img-fluid"
+                            src="./assets/historia-game.jpg" alt="Experiência do usuário no jogo" /></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>[Mês, Ano]</h4>
+                            <h4 class="subheading">Frente de Game — Experiência do Usuário</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p class="text-muted">Transformação do conhecimento reunido em uma experiência interativa
+                                e educativa, no formato de jogo 2D.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="timeline-inverted">
+                    <div class="timeline-image"><img class="rounded-circle img-fluid"
+                            src="./assets/historia-final.jpg" alt="Finalização do projeto" /></div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>[Mês, Ano]</h4>
+                            <h4 class="subheading">[Etapa a definir]</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p class="text-muted">[Espaço reservado para descrever a próxima etapa do projeto.]</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="equipe">
+        <div class="container">
+            <h2 class="section-title reveal">Nossa Equipe</h2>
+            <div class="team-grid reveal-stagger">
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="./assets/integrante-1.jpg" alt="Integrante 1">
+                    </div>
+                    <div class="team-info">
+                        <h3>[Nome do Integrante]</h3>
+                        <p class="team-role">[Função no projeto]</p>
+                        <p class="team-description">[Breve descrição das responsabilidades e contribuições deste
+                            integrante no projeto AgroLab.]</p>
+                        <div class="team-social">
+                            <a href="#" target="_blank">in</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="./assets/integrante-2.jpg" alt="Integrante 2">
+                    </div>
+                    <div class="team-info">
+                        <h3>[Nome do Integrante]</h3>
+                        <p class="team-role">[Função no projeto]</p>
+                        <p class="team-description">[Breve descrição das responsabilidades e contribuições deste
+                            integrante no projeto AgroLab.]</p>
+                        <div class="team-social">
+                            <a href="#" target="_blank">in</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="./assets/integrante-3.jpg" alt="Integrante 3">
+                    </div>
+                    <div class="team-info">
+                        <h3>[Nome do Integrante]</h3>
+                        <p class="team-role">[Função no projeto]</p>
+                        <p class="team-description">[Breve descrição das responsabilidades e contribuições deste
+                            integrante no projeto AgroLab.]</p>
+                        <div class="team-social">
+                            <a href="#" target="_blank">in</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="cronograma" class="timeline">
+        <div class="container">
+            <h2 class="section-title reveal">Cronograma</h2>
+            <div class="timeline-container reveal">
+                <div class="timeline-item">
+                    <div class="timeline-date">[Data]</div>
+                    <div class="timeline-content">
+                        <h3>[Nome do Evento/Marco]</h3>
+                        <p>[Descrição do evento, apresentação ou entrega do projeto.]</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">[Data]</div>
+                    <div class="timeline-content">
+                        <h3>[Nome do Evento/Marco]</h3>
+                        <p>[Descrição do evento, apresentação ou entrega do projeto.]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>Email: [seuemail@dominio.com]</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Localização</h3>
+                    <p>[Instituição]</p>
+                    <p>[Cidade - UF]</p>
+                </div>
+            </div>
+            <p>&copy; 2025/2026 AgroLab AI. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <script src="index.js"></script>
+</body>
+
+</html>
