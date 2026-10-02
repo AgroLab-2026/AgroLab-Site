@@ -4,331 +4,712 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroLab AI</title>
+    <title>AgroLab — Estufa inteligente e gamificada</title>
+    <meta name="description"
+        content="AgroLab é um projeto de Iniciação Científica que une Hardware, Inteligência Artificial e Game numa estufa inteligente e gamificada para mostrar, na prática, como a tecnologia pode apoiar a agricultura familiar.">
+    <meta property="og:title" content="AgroLab — Estufa inteligente e gamificada">
+    <meta property="og:description"
+        content="Hardware, Inteligência Artificial e Game unidos para mostrar como a tecnologia pode apoiar a agricultura familiar.">
+    <meta property="og:image" content="assets/media/estufa.jpg">
+    <meta name="theme-color" content="#1E3528">
+    <link rel="icon" href="assets/Logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Barra de progresso de rolagem -->
+    <!-- Ícones (sprite SVG reutilizado em toda a página) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="i-thermo" viewBox="0 0 24 24"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /></symbol>
+            <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" /></symbol>
+            <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></symbol>
+            <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2" /></symbol>
+            <symbol id="i-ai" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2" /><circle cx="5" cy="18" r="2" /><circle cx="12" cy="12" r="2.2" /><circle cx="19" cy="7" r="2" /><circle cx="19" cy="17" r="2" /><path d="M6.8 7 10.2 11M6.8 17l3.4-4M13.9 11l3.3-2.9M13.9 13l3.3 2.9" /></symbol>
+            <symbol id="i-game" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="6" /><path d="M6 12h4M8 10v4" /><circle cx="15.5" cy="11" r=".6" /><circle cx="18" cy="13.2" r=".6" /></symbol>
+            <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z" /><path d="m3 8 9 5 9-5M12 13v8" /></symbol>
+            <symbol id="i-projector" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="2" /><circle cx="16" cy="12" r="2.6" /><path d="M5.5 12h4M6 17v2M18 17v2" /></symbol>
+            <symbol id="i-fan" viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2M9.6 4.6A2 2 0 1 1 11 8H2M12.6 19.4A2 2 0 1 0 14 16H2" /></symbol>
+            <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></symbol>
+            <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></symbol>
+            <symbol id="i-waves" viewBox="0 0 24 24"><path d="M2 7c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M2 12c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M2 17c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0" /></symbol>
+            <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M7 21h10M12 21v-9M12 12C12 8 9 5 4 5c0 4 3 7 8 7ZM12 10c0-3 2.5-6 8-6 0 4-3 6-8 6Z" /></symbol>
+            <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></symbol>
+            <symbol id="i-rain" viewBox="0 0 24 24"><path d="M20 15.6A5 5 0 0 0 18 6h-1.3A8 8 0 1 0 4 14.3" /><path d="M8 17v2M8 12v2M16 17v2M16 12v2M12 19v2M12 14v2" /></symbol>
+            <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" /></symbol>
+            <symbol id="i-growth" viewBox="0 0 24 24"><path d="M3 3v18h18" /><path d="m7 15 4-4 3 3 6-6" /><path d="M15 8h5v5" /></symbol>
+            <symbol id="i-pause" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M10 9v6M14 9v6" /></symbol>
+            <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" /></symbol>
+            <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="m5.7 5.7 12.6 12.6" /></symbol>
+            <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z" /><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5" /></symbol>
+            <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21H3z" /><path d="M9 21v-6h6v6" /></symbol>
+            <symbol id="i-school" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z" /><path d="M6 12v5c3 2 9 2 12 0v-5M22 10v6" /></symbol>
+            <symbol id="i-data" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" /></symbol>
+            <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6" /></symbol>
+            <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" /></symbol>
+            <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+        </defs>
+    </svg>
+
+    <a class="skip-link" href="#desafio">Pular para o conteúdo</a>
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <img class="logo-icon" src="assets/Logo.png" alt="AgroLab">
-                <h1>AgroLab</h1>
-            </div>
+    <header class="site-header" id="siteHeader">
+        <nav class="container nav">
+            <a class="logo" href="#home" aria-label="AgroLab — início">
+                <img class="logo-icon" src="assets/Logo.png" alt="">
+                <span>AgroLab</span>
+            </a>
             <ul class="nav-links" id="navLinks">
-                <li class="nav-item"><a href="#home">Início</a></li>
-                <li class="nav-item"><a href="#sobre">Sobre</a></li>
-                <li class="nav-item"><a href="#como-funciona">Como Funciona</a></li>
-                <li class="nav-item"><a href="#objetivos">Objetivos</a></li>
-                <li class="nav-item"><a href="#historia">História</a></li>
-                <li class="nav-item"><a href="#equipe">Equipe</a></li>
-                <li class="nav-item"><a href="#cronograma">Cronograma</a></li>
-                <li class="nav-item"><a href="#contato">Contato</a></li>
+                <li><a href="#desafio">O desafio</a></li>
+                <li><a href="#frentes">Três frentes</a></li>
+                <li><a href="#impacto">Impacto</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#equipe">Equipe</a></li>
             </ul>
-            <div class="hamburger" id="hamburgerBtn">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false"
+                aria-controls="navLinks">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="wave-decor" aria-hidden="true">
-            <div class="wave-top-right">
-                <video muted loop playsinline preload="auto" style="display:none">
-                    <source src="assets/wave-top-right.webm" type="video/webm">
-                    <source src="assets/wave-top-right.mp4" type="video/mp4">
-                </video>
-                <canvas class="wave-canvas" width="320" height="320"></canvas>
-            </div>
-            <div class="wave-bottom-left">
-                <video muted loop playsinline preload="auto" style="display:none">
-                    <source src="assets/wave-bottom-left.webm" type="video/webm">
-                    <source src="assets/wave-bottom-left.mp4" type="video/mp4">
-                </video>
-                <canvas class="wave-canvas" width="320" height="320"></canvas>
-            </div>
-        </div>
-        <div class="container">
-            <h1>AgroLab</h1>
-            <p class="tagline">Transformando decisões em colheitas com inteligência artificial aplicada à agricultura.</p>
-            <a href="#sobre" class="cta-button">Saiba mais</a>
-        </div>
-    </section>
-
-    <!-- Problema Section -->
-    <section id="problema" class="problema">
-        <div class="container">
-            <h2 class="section-title reveal">O Problema</h2>
-            <p class="section-subtitle reveal">E se fosse possível não apenas entender os problemas causados por eventos
-                climáticos extremos, como também experimentar soluções na prática? Eventos recentes mostram o tamanho do
-                desafio enfrentado pelo produtor rural:</p>
-            <div class="problema-grid reveal-stagger">
-                <div class="problema-card">
-                    <div class="valor">R$ 5,4 bi</div>
-                    <p>em prejuízos à agricultura familiar na região de Erechim/RS por mudanças climáticas.</p>
+    <main>
+        <!-- HERO ======================================================= -->
+        <section id="home" class="hero">
+            <div class="wave-decor" aria-hidden="true">
+                <div class="wave-top-right">
+                    <video muted loop playsinline preload="auto" style="display:none">
+                        <source src="assets/wave-top-right.mp4" type="video/mp4">
+                    </video>
+                    <canvas class="wave-canvas" width="320" height="320"></canvas>
                 </div>
-                <div class="problema-card">
-                    <div class="valor">R$ 69 mi</div>
-                    <p>em prejuízos na agricultura de Capanema após seca severa, com apenas 16% da chuva esperada.</p>
-                </div>
-                <div class="problema-card">
-                    <div class="valor">R$ 60 mi</div>
-                    <p>em prejuízos na agricultura de Petrolândia causados por granizo, segundo a Epagri.</p>
+                <div class="wave-bottom-left">
+                    <video muted loop playsinline preload="auto" style="display:none">
+                        <source src="assets/wave-bottom-left.mp4" type="video/mp4">
+                    </video>
+                    <canvas class="wave-canvas" width="320" height="320"></canvas>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="sobre" class="about">
-        <div class="container">
-            <h2 class="section-title reveal">Sobre o AgroLab</h2>
-            <div class="about-content">
-                <div class="about-text reveal">
-                    <p>O <strong>AgroLab AI</strong> é um projeto de <strong>Iniciação Científica (IC)</strong> focado no
-                        desenvolvimento de um sistema integrado e gamificado de gestão agrícola. O objetivo é demonstrar
-                        como a inteligência artificial — alimentada por dados preditivos e variáveis ambientais — pode
-                        otimizar a tomada de decisões no manejo de culturas, superando a performance de decisões humanas
-                        tradicionais.</p>
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <p class="hero-kicker">Projeto de Iniciação Científica 2026</p>
+                    <h1 class="hero-title">AgroLab</h1>
+                    <p class="hero-lead">Uma estufa inteligente e gamificada que mostra, na prática, como a tecnologia
+                        pode apoiar a agricultura familiar.</p>
 
-                    <p>Através de uma interface dinâmica, em estilo de jogo 2D, alimentada por uma API e por modelos de
-                        Machine Learning, o usuário assume o papel de agricultor e compete com uma IA autônoma para
-                        manter uma plantação saudável dentro de uma estufa inteligente.</p>
+                    <ul class="hero-fronts" aria-label="As três frentes do projeto">
+                        <li><a href="#hardware"><svg class="ic"><use href="#i-cpu" /></svg>Hardware</a></li>
+                        <li class="plus" aria-hidden="true">+</li>
+                        <li><a href="#ia"><svg class="ic"><use href="#i-ai" /></svg>Inteligência Artificial</a></li>
+                        <li class="plus" aria-hidden="true">+</li>
+                        <li><a href="#game"><svg class="ic"><use href="#i-game" /></svg>Game</a></li>
+                    </ul>
 
-                    <p><strong>[Espaço reservado para mais detalhes sobre o projeto, metodologia e resultados —
-                        adicione aqui.]</strong></p>
-                </div>
-                <div class="about-image reveal">
-                    <img src="./assets/estufa-inteligente.jpg" alt="Estufa inteligente do AgroLab">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Como Funciona Section -->
-    <section id="como-funciona">
-        <div class="container">
-            <h2 class="section-title reveal">Como Funciona</h2>
-            <p class="section-subtitle reveal">O motor do sistema simula o dia a dia de uma estufa inteligente, colocando
-                lado a lado a decisão humana e a decisão da inteligência artificial.</p>
-            <div class="rules-grid reveal-stagger">
-                <div class="rule-card">
-                    <h3>🧑‍🌾 O Agricultor</h3>
-                    <p>O participante assume o papel do agricultor e precisa salvar uma plantação em um ambiente
-                        instável e desfavorável, tomando decisões diante de eventos inesperados.</p>
-                </div>
-                <div class="rule-card">
-                    <h3>🌡️ As Variáveis</h3>
-                    <p>O jogador controla variáveis como temperatura, umidade e iluminação, tomando decisões em tempo
-                        real para manter a planta saudável.</p>
-                </div>
-                <div class="rule-card">
-                    <h3>🤖 O Desafio</h3>
-                    <p>O participante compete com um sistema autônomo desenvolvido pela equipe, que também busca
-                        equilibrar o ambiente da melhor forma possível.</p>
-                </div>
-                <div class="rule-card">
-                    <h3>📊 [Título editável]</h3>
-                    <p>[Espaço reservado para descrever outra regra, categoria de decisão ou funcionalidade do
-                        sistema.]</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Objetivos Section -->
-    <section id="objetivos" class="objetivos">
-        <div class="container">
-            <h2 class="section-title title reveal">Objetivos do Projeto</h2>
-            <div class="objetivos-grid reveal-stagger">
-                <div class="objetivo-card">
-                    <div class="objetivo-icon">🎯</div>
-                    <h3>Objetivo Principal</h3>
-                    <p>Provar empiricamente que a tomada de decisão baseada em modelos de Machine Learning maximiza a
-                        produtividade e previne riscos com mais eficácia do que a intuição humana.</p>
-                </div>
-                <div class="objetivo-card">
-                    <div class="objetivo-icon">🎮</div>
-                    <h3>Abordagem</h3>
-                    <p>Transformar dados, inteligência artificial e criatividade em uma experiência interativa e
-                        educativa, acessível a qualquer produtor ou estudante.</p>
-                </div>
-                <div class="objetivo-card">
-                    <div class="objetivo-icon">🌱</div>
-                    <h3>Impacto Esperado</h3>
-                    <p>Contribuir para uma agricultura mais eficiente, sustentável e acessível, mostrando na prática o
-                        valor da IA no campo.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- História Section -->
-    <section class="page-section" id="historia">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="section-title reveal">História do Projeto AgroLab</h2>
-            </div>
-            <ul class="timeline">
-                <li>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid"
-                            src="./assets/historia-hardware.jpg" alt="Construção da estufa física" /></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>[Mês, Ano]</h4>
-                            <h4 class="subheading">Frente de Hardware — Construção da Estufa</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">Início do desenvolvimento da parte física da estufa inteligente,
-                                estruturando a base para os sensores e o ambiente controlado.</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="timeline-inverted">
-                    <div class="timeline-image"><img class="rounded-circle img-fluid"
-                            src="./assets/historia-ia.jpg" alt="Estudo de dados e inteligência artificial" /></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>[Mês, Ano]</h4>
-                            <h4 class="subheading">Frente de Inteligência Artificial — Estudo e Dados</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">Definição das variáveis e dados necessários para que o sistema
-                                pudesse analisar o ambiente e recomendar ações.</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid"
-                            src="./assets/historia-game.jpg" alt="Experiência do usuário no jogo" /></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>[Mês, Ano]</h4>
-                            <h4 class="subheading">Frente de Game — Experiência do Usuário</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">Transformação do conhecimento reunido em uma experiência interativa
-                                e educativa, no formato de jogo 2D.</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="timeline-inverted">
-                    <div class="timeline-image"><img class="rounded-circle img-fluid"
-                            src="./assets/historia-final.jpg" alt="Finalização do projeto" /></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>[Mês, Ano]</h4>
-                            <h4 class="subheading">[Etapa a definir]</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">[Espaço reservado para descrever a próxima etapa do projeto.]</p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section id="equipe">
-        <div class="container">
-            <h2 class="section-title reveal">Nossa Equipe</h2>
-            <div class="team-grid reveal-stagger">
-                <div class="team-card">
-                    <div class="team-image">
-                        <img src="./assets/integrante-1.jpg" alt="Integrante 1">
-                    </div>
-                    <div class="team-info">
-                        <h3>[Nome do Integrante]</h3>
-                        <p class="team-role">[Função no projeto]</p>
-                        <p class="team-description">[Breve descrição das responsabilidades e contribuições deste
-                            integrante no projeto AgroLab.]</p>
-                        <div class="team-social">
-                            <a href="#" target="_blank">in</a>
-                        </div>
+                    <div class="hero-actions">
+                        <a href="#desafio" class="btn btn-primary">Conheça o projeto</a>
+                        <a href="#equipe" class="btn btn-ghost">Ver a equipe</a>
                     </div>
                 </div>
 
-                <div class="team-card">
-                    <div class="team-image">
-                        <img src="./assets/integrante-2.jpg" alt="Integrante 2">
-                    </div>
-                    <div class="team-info">
-                        <h3>[Nome do Integrante]</h3>
-                        <p class="team-role">[Função no projeto]</p>
-                        <p class="team-description">[Breve descrição das responsabilidades e contribuições deste
-                            integrante no projeto AgroLab.]</p>
-                        <div class="team-social">
-                            <a href="#" target="_blank">in</a>
+                <!-- Painel vivo: simula a estufa lendo sensores e a IA decidindo -->
+                <div class="hero-panel" aria-label="Simulação ilustrativa da estufa em tempo real">
+                    <div class="panel">
+                        <div class="panel-head">
+                            <span class="live-dot" aria-hidden="true"></span>
+                            <span>Estufa em tempo real</span>
+                            <span class="panel-crop"><img src="assets/media/alface.png" alt="">Alface crespa</span>
                         </div>
-                    </div>
-                </div>
 
-                <div class="team-card">
-                    <div class="team-image">
-                        <img src="./assets/integrante-3.jpg" alt="Integrante 3">
-                    </div>
-                    <div class="team-info">
-                        <h3>[Nome do Integrante]</h3>
-                        <p class="team-role">[Função no projeto]</p>
-                        <p class="team-description">[Breve descrição das responsabilidades e contribuições deste
-                            integrante no projeto AgroLab.]</p>
-                        <div class="team-social">
-                            <a href="#" target="_blank">in</a>
+                        <div class="reading" data-key="temp">
+                            <svg class="ic"><use href="#i-thermo" /></svg>
+                            <span class="reading-name">Temperatura</span>
+                            <span class="reading-value"><b id="vTemp">21</b> °C</span>
+                            <span class="meter"><span class="meter-ideal" style="left:30%;width:35%"></span><span
+                                    class="meter-fill" id="mTemp"></span></span>
                         </div>
+                        <div class="reading" data-key="umid">
+                            <svg class="ic"><use href="#i-drop" /></svg>
+                            <span class="reading-name">Umidade do solo</span>
+                            <span class="reading-value"><b id="vUmid">68</b> %</span>
+                            <span class="meter"><span class="meter-ideal" style="left:55%;width:30%"></span><span
+                                    class="meter-fill" id="mUmid"></span></span>
+                        </div>
+                        <div class="reading" data-key="luz">
+                            <svg class="ic"><use href="#i-sun" /></svg>
+                            <span class="reading-name">Luminosidade</span>
+                            <span class="reading-value"><b id="vLuz">Alta</b></span>
+                            <span class="meter"><span class="meter-ideal" style="left:40%;width:40%"></span><span
+                                    class="meter-fill" id="mLuz"></span></span>
+                        </div>
+
+                        <div class="panel-event" id="panelEvent" aria-live="polite">Clima: tempo estável</div>
+
+                        <div class="panel-decision">
+                            <span class="decision-label">Decisão da IA</span>
+                            <span class="decision-value" id="decision">
+                                <svg class="ic"><use href="#i-pause" /></svg><span>Não fazer nada</span>
+                            </span>
+                        </div>
+                        <p class="panel-foot">Simulação ilustrativa · a faixa clara marca o ideal da cultura</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Timeline Section -->
-    <section id="cronograma" class="timeline">
-        <div class="container">
-            <h2 class="section-title reveal">Cronograma</h2>
-            <div class="timeline-container reveal">
-                <div class="timeline-item">
-                    <div class="timeline-date">[Data]</div>
-                    <div class="timeline-content">
-                        <h3>[Nome do Evento/Marco]</h3>
-                        <p>[Descrição do evento, apresentação ou entrega do projeto.]</p>
-                    </div>
+        <!-- PROBLEMA =================================================== -->
+        <section id="problema" class="section problema">
+            <div class="container">
+                <div class="problema-intro">
+                    <h2 class="section-title">O clima já está cobrando a conta do campo</h2>
+                    <p>E se fosse possível não só entender os prejuízos causados por eventos climáticos extremos, mas
+                        também experimentar soluções na prática, sem colocar nenhuma safra em risco?</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">[Data]</div>
-                    <div class="timeline-content">
-                        <h3>[Nome do Evento/Marco]</h3>
-                        <p>[Descrição do evento, apresentação ou entrega do projeto.]</p>
+                <dl class="stats">
+                    <div class="stat">
+                        <dt>R$ 5,4 bi</dt>
+                        <dd>em prejuízos à agricultura familiar na região de Erechim/RS por mudanças climáticas.</dd>
+                    </div>
+                    <div class="stat">
+                        <dt>R$ 69 mi</dt>
+                        <dd>em perdas em Capanema após seca severa, com apenas 16% da chuva esperada.</dd>
+                    </div>
+                    <div class="stat">
+                        <dt>R$ 60 mi</dt>
+                        <dd>em perdas em Petrolândia causadas por granizo, segundo a Epagri.</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- DESAFIO (slide 2) ========================================== -->
+        <section id="desafio" class="section desafio">
+            <div class="container split">
+                <div class="split-text">
+                    <p class="kicker">O desafio</p>
+                    <h2 class="section-title">Transformamos um desafio em experiência</h2>
+                    <p class="lead">O participante assume o papel do agricultor e precisa salvar uma plantação num
+                        ambiente instável, reagindo em tempo real à temperatura, à umidade e à luminosidade da estufa.
+                    </p>
+                    <p>E ele não joga sozinho: do outro lado, um sistema autônomo guiado por modelos de inteligência
+                        artificial cuida de uma estufa idêntica, decidindo apenas com base nos dados dos sensores. No fim
+                        da rodada, as duas plantações estão lado a lado.</p>
+                    <ul class="tag-list">
+                        <li><svg class="ic"><use href="#i-sprout" /></svg>Aprender fazendo</li>
+                        <li><svg class="ic"><use href="#i-shield" /></svg>Erro sem prejuízo</li>
+                        <li><svg class="ic"><use href="#i-data" /></svg>Decisão baseada em dados</li>
+                    </ul>
+                </div>
+
+                <div class="versus" aria-label="Jogador contra estufa autônoma">
+                    <div class="versus-side">
+                        <span class="versus-icon"><svg class="ic"><use href="#i-user" /></svg></span>
+                        <h3>Você</h3>
+                        <p>Decide pela intuição, olhando os painéis da estufa.</p>
+                    </div>
+                    <div class="versus-mid" aria-hidden="true">vs</div>
+                    <div class="versus-side is-ai">
+                        <span class="versus-icon"><svg class="ic"><use href="#i-ai" /></svg></span>
+                        <h3>Estufa autônoma</h3>
+                        <p>Compara cada leitura com a faixa ideal da cultura e age.</p>
+                    </div>
+                    <p class="versus-foot">A cada rodada o jogador vê onde acertou e onde o dado teria decidido melhor.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FRENTES (slide 3) + integração ============================== -->
+        <section id="frentes" class="section frentes">
+            <div class="container">
+                <div class="section-head">
+                    <p class="kicker kicker-light">Como construímos</p>
+                    <h2 class="section-title">Um projeto, três frentes que funcionam como um só sistema</h2>
+                    <p>Cada frente resolve uma parte do problema. Juntas, elas fecham um ciclo completo: o mundo físico
+                        gera dados, a IA transforma dados em decisão e o game transforma decisão em aprendizado.</p>
+                </div>
+
+                <div class="fronts">
+                    <a class="front" href="#hardware">
+                        <span class="front-num">01</span>
+                        <span class="front-icon"><svg class="ic"><use href="#i-cpu" /></svg></span>
+                        <h3>Hardware</h3>
+                        <p>A estufa física: estrutura, eletrônica, sensores, projeção e o painel que o público toca.</p>
+                        <span class="front-link">Ver a estufa <svg class="ic"><use href="#i-arrow" /></svg></span>
+                    </a>
+                    <a class="front" href="#ia">
+                        <span class="front-num">02</span>
+                        <span class="front-icon"><svg class="ic"><use href="#i-ai" /></svg></span>
+                        <h3>Inteligência Artificial</h3>
+                        <p>As variáveis, os dados e os modelos que recomendam a ação de manejo certa para cada momento.
+                        </p>
+                        <span class="front-link">Ver os modelos <svg class="ic"><use href="#i-arrow" /></svg></span>
+                    </a>
+                    <a class="front" href="#game">
+                        <span class="front-num">03</span>
+                        <span class="front-icon"><svg class="ic"><use href="#i-game" /></svg></span>
+                        <h3>Game</h3>
+                        <p>A experiência: regras, tempo, imprevistos climáticos e feedback claro para o jogador.</p>
+                        <span class="front-link">Ver o jogo <svg class="ic"><use href="#i-arrow" /></svg></span>
+                    </a>
+                </div>
+
+                <div class="loop">
+                    <h3 class="loop-title">Como as três frentes se conectam</h3>
+                    <ol class="loop-steps">
+                        <li class="step hw">
+                            <span class="step-tag">Hardware</span>
+                            <svg class="ic"><use href="#i-pulse" /></svg>
+                            <h4>Sensores leem a estufa</h4>
+                            <p>Temperatura, umidade, luz, pH, CE, fluxo e nível da água.</p>
+                        </li>
+                        <li class="step hw">
+                            <span class="step-tag">Hardware</span>
+                            <svg class="ic"><use href="#i-cpu" /></svg>
+                            <h4>ESP32 envia os dados</h4>
+                            <p>O microcontrolador leva as leituras para o computador.</p>
+                        </li>
+                        <li class="step ai">
+                            <span class="step-tag">IA</span>
+                            <svg class="ic"><use href="#i-ai" /></svg>
+                            <h4>O modelo decide</h4>
+                            <p>Compara leitura e faixa ideal e escolhe entre irrigar, travar, proteger ou esperar.</p>
+                        </li>
+                        <li class="step game">
+                            <span class="step-tag">Game</span>
+                            <svg class="ic"><use href="#i-projector" /></svg>
+                            <h4>O jogo mostra tudo</h4>
+                            <p>A projeção exibe as duas estufas, a do jogador e a autônoma, ao mesmo tempo.</p>
+                        </li>
+                        <li class="step game">
+                            <span class="step-tag">Game</span>
+                            <svg class="ic"><use href="#i-sliders" /></svg>
+                            <h4>O jogador age</h4>
+                            <p>Pelos botões do painel, e os atuadores respondem na estufa real.</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- FRENTE 01 · HARDWARE (slides 4 e 5) ========================= -->
+        <section id="hardware" class="section hardware">
+            <div class="container">
+                <div class="front-header">
+                    <span class="front-badge"><svg class="ic"><use href="#i-cpu" /></svg>Frente 01</span>
+                    <h2 class="section-title">Hardware: a estufa que o público pode tocar</h2>
+                    <p>Uma estrutura acessível, montada para ser transportada e para tornar a experiência imersiva,
+                        mostrando de forma concreta a importância da tecnologia no campo.</p>
+                </div>
+
+                <div class="media-split">
+                    <figure class="media-frame">
+                        <video class="lazy-video" muted loop playsinline preload="none"
+                            poster="assets/media/estufa-poster.jpg" aria-label="Vídeo da estufa AgroLab montada">
+                            <source data-src="assets/media/estufa.mp4" type="video/mp4">
+                        </video>
+                        <figcaption>A estufa montada, com os canos de hidroponia instalados.</figcaption>
+                    </figure>
+
+                    <ul class="feature-list">
+                        <li>
+                            <span class="feature-icon"><svg class="ic"><use href="#i-box" /></svg></span>
+                            <div>
+                                <h3>Estrutura em MDF</h3>
+                                <p>Material acessível e fácil de cortar: sustenta o conjunto e permite montar e
+                                    transportar a estufa.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><svg class="ic"><use href="#i-projector" /></svg></span>
+                            <div>
+                                <h3>Projeção frontal</h3>
+                                <p>Um projetor posicionado na frente da estufa exibe ao fundo os dois cenários do jogo
+                                    simultaneamente.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><svg class="ic"><use href="#i-waves" /></svg></span>
+                            <div>
+                                <h3>Hidroponia</h3>
+                                <p>Canos com vasos hidropônicos prontos para a solução nutritiva, acompanhados de
+                                    sensores para registrar e estudar os dados.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3 class="sub-title">Componentes da estufa inteligente</h3>
+                <div class="components">
+                    <article class="component">
+                        <svg class="ic"><use href="#i-box" /></svg>
+                        <h4>Estrutura</h4>
+                        <p>Chapas de MDF, perfis de sustentação, fixadores, acabamento e um monitor para o dashboard.</p>
+                    </article>
+                    <article class="component">
+                        <svg class="ic"><use href="#i-projector" /></svg>
+                        <h4>Projeção</h4>
+                        <p>Projetor, suporte frontal e superfície de fundo para formar a imagem.</p>
+                    </article>
+                    <article class="component">
+                        <svg class="ic"><use href="#i-cpu" /></svg>
+                        <h4>ESP32</h4>
+                        <p>Microcontrolador central: lê os sensores e se comunica com o computador.</p>
+                    </article>
+                    <article class="component">
+                        <svg class="ic"><use href="#i-pulse" /></svg>
+                        <h4>Sensores</h4>
+                        <p>Temperatura e umidade do ar, luminosidade, temperatura da solução, CE, fluxo e nível da
+                            água.</p>
+                    </article>
+                    <article class="component">
+                        <svg class="ic"><use href="#i-fan" /></svg>
+                        <h4>Atuadores</h4>
+                        <p>Circulação da solução, ventilação e iluminação da estufa.</p>
+                    </article>
+                    <article class="component">
+                        <svg class="ic"><use href="#i-monitor" /></svg>
+                        <h4>Interface</h4>
+                        <p>Botões, display e o painel em que o jogador toma as decisões.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- FRENTE 02 · IA (slides 6 e 7) =============================== -->
+        <section id="ia" class="section ia">
+            <div class="container">
+                <div class="front-header">
+                    <span class="front-badge"><svg class="ic"><use href="#i-ai" /></svg>Frente 02</span>
+                    <h2 class="section-title">Inteligência Artificial: da literatura à decisão</h2>
+                    <p>Antes de qualquer modelo, pesquisa. Levantamos na literatura científica, em fontes como Embrapa e
+                        Instituto Agronômico, as faixas ideais de cada variável para três culturas.</p>
+                </div>
+
+                <div class="ia-grid">
+                    <div class="ia-col">
+                        <h3 class="sub-title">Três culturas estudadas</h3>
+                        <ul class="crops">
+                            <li><img src="assets/media/alface.png" alt="">Alface crespa</li>
+                            <li><img src="assets/media/morango.png" alt="">Morango</li>
+                            <li><img src="assets/media/tomate.png" alt="">Tomate</li>
+                        </ul>
+
+                        <h3 class="sub-title">O que o modelo pode decidir</h3>
+                        <ul class="labels">
+                            <li>
+                                <svg class="ic"><use href="#i-pause" /></svg>
+                                <div><b>Não fazer nada</b><span>Condições ideais</span></div>
+                            </li>
+                            <li>
+                                <svg class="ic"><use href="#i-drop" /></svg>
+                                <div><b>Irrigar</b><span>Circulação da solução baixa</span></div>
+                            </li>
+                            <li>
+                                <svg class="ic"><use href="#i-ban" /></svg>
+                                <div><b>Travar a irrigação</b><span>Circulação da solução em excesso</span></div>
+                            </li>
+                            <li>
+                                <svg class="ic"><use href="#i-shield" /></svg>
+                                <div><b>Proteger o cultivo</b><span>Luz ou temperatura fora do tolerável</span></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <aside class="variables">
+                        <h3>Variáveis do modelo</h3>
+                        <ul>
+                            <li>pH da solução nutritiva</li>
+                            <li>CE da solução nutritiva</li>
+                            <li>Temperatura da solução nutritiva</li>
+                            <li>Temperatura da estufa</li>
+                            <li>Luminosidade da estufa</li>
+                            <li>Fluxo da água nos canos de PVC</li>
+                            <li>Nível da água nos canos de PVC</li>
+                        </ul>
+                        <p>Cada cultura tem sua faixa ideal. O sistema compara a leitura com essa faixa e decide a
+                            partir da diferença.</p>
+                    </aside>
+                </div>
+
+                <div class="media-split media-split-reverse">
+                    <figure class="media-frame is-screen">
+                        <img src="assets/media/ia-eda.jpg" width="1600" height="1036"
+                            alt="Notebook de análise exploratória de dados do AgroLab, com dicionário de variáveis da cultura de morango">
+                        <figcaption>Análise exploratória dos dados que alimentam os modelos.</figcaption>
+                    </figure>
+                    <div class="note">
+                        <h3>Por que dados sintéticos primeiro?</h3>
+                        <p>Enfrentamos o problema de <em>cold start</em>: não encontramos bases públicas adequadas ao
+                            nosso escopo, e algumas exigiam licença ou tinham uso limitado.</p>
+                        <p>Por isso geramos dados sintéticos coerentes com a literatura e treinamos os primeiros modelos
+                            de classificação para as quatro ações do jogo.</p>
+                        <p>O próximo passo é unir as frentes: capturar dados reais pelos sensores da estufa e validar o
+                            modelo de forma definitiva.</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer id="contato">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Contato</h3>
-                    <p>Email: [seuemail@dominio.com]</p>
+        <!-- FRENTE 03 · GAME (slides 8 e 9) ============================= -->
+        <section id="game" class="section game">
+            <div class="container">
+                <div class="front-header">
+                    <span class="front-badge"><svg class="ic"><use href="#i-game" /></svg>Frente 03</span>
+                    <h2 class="section-title">Game: aprender cuidando de uma estufa</h2>
+                    <p>Um protótipo jogável em Unity que deixa a experiência imersiva e o mais próxima possível de uma
+                        estufa real.</p>
                 </div>
-                <div class="footer-section">
-                    <h3>Localização</h3>
-                    <p>[Instituição]</p>
-                    <p>[Cidade - UF]</p>
+
+                <figure class="media-frame game-frame">
+                    <video class="lazy-video" muted loop playsinline preload="none"
+                        poster="assets/media/game-poster.jpg" aria-label="Gameplay do protótipo do jogo AgroLab">
+                        <source data-src="assets/media/game.mp4" type="video/mp4">
+                    </video>
+                    <figcaption>À esquerda, a estufa do jogador; à direita, a estufa autônoma guiada pela IA.
+                    </figcaption>
+                </figure>
+
+                <div class="game-cards">
+                    <article class="game-card">
+                        <svg class="ic"><use href="#i-game" /></svg>
+                        <h3>Protótipo jogável</h3>
+                        <p>Primeira versão beta em funcionamento, com interface inicial completa e navegável.</p>
+                    </article>
+                    <article class="game-card">
+                        <svg class="ic"><use href="#i-sliders" /></svg>
+                        <h3>Ações do jogador</h3>
+                        <p>O jogador cuida das culturas com base nos painéis de monitoramento e acompanha saúde e
+                            crescimento em tempo real.</p>
+                    </article>
+                    <article class="game-card bruno">
+                        <img src="assets/media/senhor-bruno.png" alt="Retrato pixel art do Senhor Bruno, o fazendeiro">
+                        <h3>Senhor Bruno</h3>
+                        <p>Nosso assistente-fazendeiro orienta o jogador sobre as melhores ações a cada rodada.</p>
+                    </article>
+                </div>
+
+                <h3 class="sub-title">Como funciona uma rodada</h3>
+                <ol class="round">
+                    <li>
+                        <svg class="ic"><use href="#i-clock" /></svg>
+                        <h4>Tempo limitado</h4>
+                        <p>Cada rodada tem duração fixa para concluir o desafio.</p>
+                    </li>
+                    <li>
+                        <svg class="ic"><use href="#i-rain" /></svg>
+                        <h4>Imprevistos</h4>
+                        <p>Chuva intensa, queda brusca de temperatura, excesso de sol.</p>
+                    </li>
+                    <li>
+                        <svg class="ic"><use href="#i-sliders" /></svg>
+                        <h4>Adaptação</h4>
+                        <p>O jogador reage ajustando as variáveis da estufa.</p>
+                    </li>
+                    <li>
+                        <svg class="ic"><use href="#i-growth" /></svg>
+                        <h4>Resultado visível</h4>
+                        <p>Quanto melhor a decisão, melhor o desenvolvimento da cultura.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- IMPACTO ===================================================== -->
+        <section id="impacto" class="section impacto">
+            <div class="container">
+                <div class="section-head">
+                    <p class="kicker kicker-light">Impacto</p>
+                    <h2 class="section-title">O que muda quando hardware, IA e game trabalham juntos</h2>
+                    <p>Separadas, cada frente seria só uma estufa, um modelo ou um jogo. Unidas, viram uma forma
+                        concreta de mostrar a qualquer pessoa o valor da tecnologia no campo.</p>
+                </div>
+
+                <div class="impact-grid">
+                    <article class="impact">
+                        <svg class="ic"><use href="#i-home" /></svg>
+                        <h3>Tecnologia ao alcance da agricultura familiar</h3>
+                        <p>MDF, ESP32 e sensores acessíveis mostram que monitorar uma plantação não exige estrutura
+                            cara nem equipamento industrial.</p>
+                    </article>
+                    <article class="impact">
+                        <svg class="ic"><use href="#i-school" /></svg>
+                        <h3>Aprendizado sem risco</h3>
+                        <p>Errar no jogo não custa uma safra. Estudantes e produtores experimentam decisões e veem as
+                            consequências na hora.</p>
+                    </article>
+                    <article class="impact">
+                        <svg class="ic"><use href="#i-data" /></svg>
+                        <h3>Decisão baseada em dados</h3>
+                        <p>Colocar intuição e IA lado a lado torna visível, rodada a rodada, quando o dado decide melhor
+                            e por quê.</p>
+                    </article>
+                    <article class="impact">
+                        <svg class="ic"><use href="#i-book" /></svg>
+                        <h3>Ciência com base sólida</h3>
+                        <p>Parâmetros validados na literatura agronômica e um artigo científico como resultado do
+                            projeto.</p>
+                    </article>
+                </div>
+
+                <div class="equation" aria-label="Hardware mais IA mais Game igual AgroLab">
+                    <span><svg class="ic"><use href="#i-cpu" /></svg>Dados reais</span>
+                    <i aria-hidden="true">+</i>
+                    <span><svg class="ic"><use href="#i-ai" /></svg>Decisões inteligentes</span>
+                    <i aria-hidden="true">+</i>
+                    <span><svg class="ic"><use href="#i-game" /></svg>Experiência envolvente</span>
+                    <i aria-hidden="true">=</i>
+                    <span class="eq-result"><img src="assets/Logo.png" alt="">AgroLab</span>
                 </div>
             </div>
-            <p>&copy; 2025/2026 AgroLab AI. Todos os direitos reservados.</p>
+        </section>
+
+        <!-- ROADMAP (slide 10) ========================================== -->
+        <section id="roadmap" class="section roadmap">
+            <div class="container">
+                <div class="section-head">
+                    <p class="kicker">Roadmap</p>
+                    <h2 class="section-title">O caminho até a entrega final</h2>
+                    <p>Agosto fechou as bases de cada frente, setembro concentrou a integração e outubro marca a entrega
+                        do sistema completo, com IA, hardware e game funcionando juntos.</p>
+                </div>
+
+                <div class="roadmap-scroll" tabindex="0" aria-label="Tabela do roadmap, role para os lados no celular">
+                    <table class="roadmap-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Frentes</th>
+                                <th scope="col" data-month="7">Agosto</th>
+                                <th scope="col" data-month="8">Setembro</th>
+                                <th scope="col" data-month="9">Outubro</th>
+                                <th scope="col">Adicionais</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><svg class="ic"><use href="#i-cpu" /></svg>Hardware</th>
+                                <td data-month="7"><span class="task">Finalizar estrutura dos canos e compra dos
+                                        materiais</span><span class="task">Testar sensores e projetar o sistema</span>
+                                </td>
+                                <td data-month="8"><span class="task">Integrar o sistema e concluir a montagem</span>
+                                </td>
+                                <td data-month="9"><span class="task is-goal">Sistema completo</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><svg class="ic"><use href="#i-ai" /></svg>Inteligência Artificial</th>
+                                <td data-month="7"><span class="task">Finalizar estudo dos modelos e das
+                                        culturas</span><span class="task">Gerar os dados de forma concisa e aplicar
+                                        EDA</span></td>
+                                <td data-month="8"><span class="task">Construir o dashboard e integrar com a
+                                        IA</span><span class="task">Aprimorar o modelo</span></td>
+                                <td data-month="9"><span class="task">Integrar a IA com o game</span><span
+                                        class="task is-goal">Sistema completo</span></td>
+                                <td rowspan="2" class="extra"><span class="task is-paper"><svg class="ic">
+                                            <use href="#i-book" />
+                                        </svg>Finalizar o artigo científico para publicação em revistas</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><svg class="ic"><use href="#i-game" /></svg>Game</th>
+                                <td data-month="7"><span class="task">Finalizar a versão beta do game</span></td>
+                                <td data-month="8"><span class="task">Adicionar novas interfaces gráficas</span><span
+                                        class="task">Criar animações dos personagens</span></td>
+                                <td data-month="9"><span class="task">Finalizar o segundo beta do game</span><span
+                                        class="task is-goal">Integrar a IA com o game</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- EQUIPE ====================================================== -->
+        <!--
+            Para trocar/adicionar fotos: salve a imagem em assets/team/ com o nome
+            indicado no atributo src (ex.: assets/team/juliana-sandes.jpg).
+            Enquanto a foto não existir, as iniciais aparecem no lugar.
+        -->
+        <section id="equipe" class="section equipe">
+            <div class="container">
+                <div class="section-head">
+                    <p class="kicker">Equipe</p>
+                    <h2 class="section-title">Quem está construindo o AgroLab</h2>
+                    <p>Estudantes de Iniciação Científica que dividiram o projeto entre hardware, inteligência
+                        artificial e game para chegar a um único sistema.</p>
+                </div>
+
+                <div class="team">
+                    <article class="member">
+                        <div class="member-photo" data-initials="JS">
+                            <img src="assets/team/juliana-sandes.jpg" alt="Foto de Juliana Sandes" loading="lazy"
+                                onerror="this.remove()">
+                        </div>
+                        <div class="member-info">
+                            <h3>Juliana Sandes</h3>
+                            <p class="member-role">Iniciação Científica · AgroLab</p>
+                            <a class="member-link" href="https://github.com/JulianaSandes" target="_blank"
+                                rel="noopener"><svg class="ic"><use href="#i-code" /></svg>GitHub</a>
+                        </div>
+                    </article>
+                    <article class="member">
+                        <div class="member-photo" data-initials="GP">
+                            <img src="assets/team/guilherme-pagani.jpg" alt="Foto de Guilherme Pagani" loading="lazy"
+                                onerror="this.remove()">
+                        </div>
+                        <div class="member-info">
+                            <h3>Guilherme Pagani</h3>
+                            <p class="member-role">Iniciação Científica · AgroLab</p>
+                        </div>
+                    </article>
+                    <article class="member">
+                        <div class="member-photo" data-initials="TS">
+                            <img src="assets/team/thiago-soares.jpg" alt="Foto de Thiago Soares" loading="lazy"
+                                onerror="this.remove()">
+                        </div>
+                        <div class="member-info">
+                            <h3>Thiago Soares</h3>
+                            <p class="member-role">Iniciação Científica · AgroLab</p>
+                            <a class="member-link" href="https://github.com/thibapso" target="_blank"
+                                rel="noopener"><svg class="ic"><use href="#i-code" /></svg>GitHub</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- FECHAMENTO (slide 11) ======================================= -->
+        <section class="closing">
+            <div class="container closing-inner">
+                <img class="closing-logo" src="assets/Logo.png" alt="">
+                <blockquote>
+                    <p>Como podemos usar tecnologia para tornar a agricultura mais eficiente, acessível e sustentável?
+                    </p>
+                </blockquote>
+                <p class="closing-sub">Porque o futuro da agricultura também depende de quem aprende a cuidar dela hoje.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contato" class="site-footer">
+        <div class="container footer-inner">
+            <a class="logo" href="#home">
+                <img class="logo-icon" src="assets/Logo.png" alt="">
+                <span>AgroLab</span>
+            </a>
+            <p>Projeto de Iniciação Científica 2026 · Hardware, Inteligência Artificial e Game.</p>
+            <a class="footer-link" href="https://github.com/AgroLab-2026" target="_blank" rel="noopener"><svg
+                    class="ic"><use href="#i-code" /></svg>AgroLab no GitHub</a>
         </div>
+        <p class="container copyright">&copy; 2026 AgroLab. Todos os direitos reservados.</p>
     </footer>
+
     <script src="index.js"></script>
 </body>
 
