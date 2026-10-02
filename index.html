@@ -631,9 +631,8 @@
 
         <!-- EQUIPE ====================================================== -->
         <!--
-            Para trocar/adicionar fotos: salve a imagem em assets/team/ com o nome
-            indicado no atributo src (ex.: assets/team/juliana-sandes.jpg).
-            Enquanto a foto não existir, as iniciais aparecem no lugar.
+            Fotos da equipe em assets/team/: equipe.jpg (foto do grupo) e
+            integrante-1.jpg ... integrante-7.jpg (fotos individuais).
         -->
         <section id="equipe" class="section equipe">
             <div class="container">
@@ -651,42 +650,23 @@
                     </figure>
                 </div>
 
-                <div class="team">
-                    <article class="member">
-                        <div class="member-photo" data-initials="JS">
-                            <img src="assets/team/juliana-sandes.jpg" alt="Foto de Juliana Sandes" loading="lazy"
-                                onerror="this.remove()">
-                        </div>
-                        <div class="member-info">
-                            <h3>Juliana Sandes</h3>
-                            <p class="member-role">Iniciação Científica · AgroLab</p>
-                            <a class="member-link" href="https://github.com/JulianaSandes" target="_blank"
-                                rel="noopener"><svg class="ic"><use href="#i-code" /></svg>GitHub</a>
-                        </div>
-                    </article>
-                    <article class="member">
-                        <div class="member-photo" data-initials="GP">
-                            <img src="assets/team/guilherme-pagani.jpg" alt="Foto de Guilherme Pagani" loading="lazy"
-                                onerror="this.remove()">
-                        </div>
-                        <div class="member-info">
-                            <h3>Guilherme Pagani</h3>
-                            <p class="member-role">Iniciação Científica · AgroLab</p>
-                        </div>
-                    </article>
-                    <article class="member">
-                        <div class="member-photo" data-initials="TS">
-                            <img src="assets/team/thiago-soares.jpg" alt="Foto de Thiago Soares" loading="lazy"
-                                onerror="this.remove()">
-                        </div>
-                        <div class="member-info">
-                            <h3>Thiago Soares</h3>
-                            <p class="member-role">Iniciação Científica · AgroLab</p>
-                            <a class="member-link" href="https://github.com/thibapso" target="_blank"
-                                rel="noopener"><svg class="ic"><use href="#i-code" /></svg>GitHub</a>
-                        </div>
-                    </article>
-                </div>
+                <!-- Fotos individuais: assets/team/integrante-1.jpg ... integrante-7.jpg -->
+                <ul class="team-faces" aria-label="Integrantes da equipe">
+                    <li class="face"><img src="assets/team/integrante-1.jpg" width="400" height="400" loading="lazy"
+                            alt="Integrante da equipe AgroLab"></li>
+                    <li class="face"><img src="assets/team/integrante-2.jpg" width="400" height="400" loading="lazy"
+                            alt="Integrante da equipe AgroLab"></li>
+                    <li class="face"><img src="assets/team/integrante-3.jpg" width="400" height="400" loading="lazy"
+                            alt="Integrante da equipe AgroLab"></li>
+                    <li class="face"><img src="assets/team/integrante-4.jpg" width="400" height="400" loading="lazy"
+                            alt="Integrante da equipe AgroLab"></li>
+                    <li class="face"><img src="assets/team/integrante-5.jpg" width="400" height="400" loading="lazy"
+                            alt="Integrante da equipe AgroLab"></li>
+                    <li class="face"><img src="assets/team/integrante-6.jpg" width="400" height="400" loading="lazy"
+                            alt="Integrante da equipe AgroLab"></li>
+                    <li class="face"><img src="assets/team/integrante-7.jpg" width="400" height="400" loading="lazy"
+                            alt="Integrante da equipe AgroLab"></li>
+                </ul>
             </div>
         </section>
 

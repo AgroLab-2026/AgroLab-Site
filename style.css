@@ -1692,6 +1692,51 @@ ol {
   text-decoration: underline;
 }
 
+/* Grade de fotos individuais da equipe */
+.team-faces {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 16px;
+}
+
+.face {
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--forest-800);
+  box-shadow: 0 0 0 4px var(--mint-100);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.face:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 4px var(--leaf-400);
+}
+
+.face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 960px) {
+  .team-faces {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-faces {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .face {
+    box-shadow: 0 0 0 3px var(--mint-100);
+  }
+}
+
 /* =========================================================
    FECHAMENTO + FOOTER
    ========================================================= */

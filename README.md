@@ -17,14 +17,11 @@ assets/
   team/             fotos da equipe
 ```
 
-## Como adicionar as fotos da equipe
+## Fotos da equipe
 
-Salve cada foto em `assets/team/` com o nome usado no `index.html`:
+Ficam em `assets/team/`:
 
-| Integrante        | Arquivo                            |
-| ----------------- | ---------------------------------- |
-| Juliana Sandes    | `assets/team/juliana-sandes.jpg`   |
-| Guilherme Pagani  | `assets/team/guilherme-pagani.jpg` |
-| Thiago Soares     | `assets/team/thiago-soares.jpg`    |
+- `equipe.jpg`: foto do time reunido com a estufa;
+- `integrante-1.jpg` … `integrante-7.jpg`: fotos individuais (quadradas, ~400×400 px).
 
-Use fotos em retrato (proporção 4:5, ~800×1000 px). Enquanto a foto não existir, o card mostra as iniciais do integrante. Para incluir alguém novo, copie um bloco `<article class="member">` na seção `#equipe` e ajuste nome, iniciais (`data-initials`), foto e links.
+Para trocar uma foto, substitua o arquivo mantendo o mesmo nome. Para incluir nomes, adicione um texto dentro de cada `<li class="face">` na seção `#equipe` do `index.html` e atualize o `alt` da imagem.
