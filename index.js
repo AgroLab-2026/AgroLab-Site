@@ -113,6 +113,207 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     /* -------------------------------------------------------
+       Hero: fundo animado
+       - grade de "sensores" com um pulso de dados atravessando a estufa
+       - brotos que crescem ao carregar e balançam na base
+       - gotas de água subindo devagar
+       ------------------------------------------------------- */
+    const heroBg = document.getElementById('heroBg');
+    if (heroBg && heroBg.getContext) {
+        const ctx = heroBg.getContext('2d');
+        const heroEl = heroBg.parentElement;
+        const LEAF = '143, 191, 122';
+        let W = 0, H = 0, dpr = 1;
+        let dots = [], sprouts = [], drops = [];
+        let running = true;
+        let rafId = 0;
+        let heroVisible = true;
+        const start = performance.now();
+
+        const rand = (a, b) => a + Math.random() * (b - a);
+
+        function build() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = heroEl.clientWidth;
+            H = heroEl.clientHeight;
+            heroBg.width = Math.round(W * dpr);
+            heroBg.height = Math.round(H * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            // Grade de sensores
+            const gap = W < 700 ? 30 : 38;
+            dots = [];
+            for (let y = gap / 2; y < H; y += gap) {
+                for (let x = gap / 2; x < W; x += gap) dots.push({ x, y });
+            }
+
+            // Brotos ao longo da base
+            const count = Math.round(W / (W < 700 ? 26 : 30));
+            sprouts = [];
+            for (let i = 0; i < count; i++) {
+                const tall = Math.random() < 0.25;
+                sprouts.push({
+                    x: (i + rand(0.1, 0.9)) * (W / count),
+                    h: tall ? rand(110, 190) : rand(35, 100),
+                    phase: rand(0, Math.PI * 2),
+                    speed: rand(0.5, 0.9),
+                    delay: rand(0, 1.2),
+                    leaves: tall ? 3 : Math.random() < 0.5 ? 2 : 1,
+                    alpha: rand(0.16, 0.34),
+                    lean: rand(-0.15, 0.15)
+                });
+            }
+
+            // Gotas
+            drops = [];
+            const nDrops = Math.round(W / 50);
+            for (let i = 0; i < nDrops; i++) drops.push(newDrop(true));
+        }
+
+        function newDrop(anywhere) {
+            return {
+                x: rand(0, W),
+                y: anywhere ? rand(0, H) : H + rand(0, 40),
+                r: rand(1, 2.6),
+                v: rand(10, 26),
+                wob: rand(0, Math.PI * 2),
+                a: rand(0.18, 0.45)
+            };
+        }
+
+        function drawLeaf(x, y, size, angle, alpha) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(size * 0.5, -size * 0.45, size, 0);
+            ctx.quadraticCurveTo(size * 0.5, size * 0.45, 0, 0);
+            ctx.fillStyle = `rgba(${LEAF}, ${alpha})`;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawSprout(s, t) {
+            const grow = prefersReducedMotion ? 1 :
+                Math.min(1, Math.max(0, (t - s.delay) / 2.2));
+            if (grow <= 0) return;
+            const e = 1 - Math.pow(1 - grow, 3); // ease-out
+            const h = s.h * e;
+            const sway = prefersReducedMotion ? 0 : Math.sin(t * s.speed + s.phase) * (h * 0.09);
+            const baseX = s.x, baseY = H;
+            const tipX = baseX + sway + s.lean * h;
+            const tipY = baseY - h;
+            const cx = baseX + (s.lean * h) * 0.3, cy = baseY - h * 0.55;
+
+            ctx.beginPath();
+            ctx.moveTo(baseX, baseY);
+            ctx.quadraticCurveTo(cx, cy, tipX, tipY);
+            ctx.strokeStyle = `rgba(${LEAF}, ${s.alpha})`;
+            ctx.lineWidth = s.h > 105 ? 2 : 1.5;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            // Folhas ao longo do caule (ponto na curva quadrática)
+            for (let i = 0; i < s.leaves; i++) {
+                const k = 0.45 + (i / Math.max(1, s.leaves)) * 0.45;
+                const u = 1 - k;
+                const lx = u * u * baseX + 2 * u * k * cx + k * k * tipX;
+                const ly = u * u * baseY + 2 * u * k * cy + k * k * tipY;
+                const side = i % 2 === 0 ? -1 : 1;
+                const size = (8 + s.h * 0.09) * e;
+                const ang = side === -1 ? Math.PI + 0.55 + sway * 0.01 : -0.55 + sway * 0.01;
+                drawLeaf(lx, ly, size, ang, s.alpha + 0.06);
+            }
+            // Par de folhas no topo (como o logo)
+            const top = (7 + s.h * 0.07) * e;
+            drawLeaf(tipX, tipY, top, -Math.PI / 2 - 0.7, s.alpha + 0.1);
+            drawLeaf(tipX, tipY, top * 0.85, -Math.PI / 2 + 0.7, s.alpha + 0.1);
+        }
+
+        let last = performance.now();
+        function frame(now) {
+            const t = (now - start) / 1000;
+            const dt = Math.min(0.05, (now - last) / 1000);
+            last = now;
+            ctx.clearRect(0, 0, W, H);
+
+            // 1) Grade de sensores com pulso diagonal (dados atravessando a estufa)
+            const band = (t * 0.12) % 1.6 - 0.3;
+            for (const d of dots) {
+                const nx = d.x / W, ny = d.y / H;
+                const pos = nx * 0.75 + ny * 0.25;
+                const dist = Math.abs(pos - band);
+                const pulse = prefersReducedMotion ? 0 : Math.max(0, 1 - dist / 0.12);
+                const side = 0.35 + 0.65 * nx;           // mais visível à direita
+                const fade = 1 - Math.max(0, ny - 0.6) * 1.6; // some perto dos brotos
+                const a = (0.07 + pulse * 0.35) * side * Math.max(0, fade);
+                if (a < 0.01) continue;
+                ctx.beginPath();
+                ctx.arc(d.x, d.y, 1.1 + pulse * 1.3, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${LEAF}, ${a})`;
+                ctx.fill();
+            }
+
+            // 2) Gotas subindo
+            if (!prefersReducedMotion) {
+                for (let i = 0; i < drops.length; i++) {
+                    const p = drops[i];
+                    p.y -= p.v * dt;
+                    p.wob += dt;
+                    if (p.y < -10) drops[i] = newDrop(false);
+                    const x = p.x + Math.sin(p.wob) * 6;
+                    const life = Math.min(1, p.y / (H * 0.35)); // somem ao subir
+                    ctx.beginPath();
+                    ctx.arc(x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${LEAF}, ${p.a * Math.max(0, life)})`;
+                    ctx.fill();
+                }
+            }
+
+            // 3) Brotos na base
+            for (const s of sprouts) drawSprout(s, t);
+
+            if (running && !prefersReducedMotion) rafId = requestAnimationFrame(frame);
+        }
+
+        build();
+        rafId = requestAnimationFrame(frame);
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                build();
+                if (!running || prefersReducedMotion) {
+                    cancelAnimationFrame(rafId);
+                    rafId = requestAnimationFrame(t => { const r = running; running = false; frame(t); running = r; });
+                }
+            }, 150);
+        });
+
+        // Pausa quando o hero sai da tela ou a aba fica oculta
+        function setRunning(on) {
+            if (on && !running) {
+                running = true;
+                last = performance.now();
+                cancelAnimationFrame(rafId);
+                if (!prefersReducedMotion) rafId = requestAnimationFrame(frame);
+            } else if (!on) {
+                running = false;
+                cancelAnimationFrame(rafId);
+            }
+        }
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(([entry]) => {
+                heroVisible = entry.isIntersecting;
+                setRunning(heroVisible && !document.hidden);
+            }).observe(heroEl);
+        }
+        document.addEventListener('visibilitychange', () => setRunning(heroVisible && !document.hidden));
+    }
+
+    /* -------------------------------------------------------
        Hero: simulação ilustrativa da estufa + decisão da IA
        ------------------------------------------------------- */
     const ui = {
