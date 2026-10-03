@@ -22,6 +22,8 @@ assets/
 Ficam em `assets/team/`:
 
 - `equipe.jpg`: foto do time reunido com a estufa;
-- `integrante-1.jpg` … `integrante-7.jpg`: fotos individuais (quadradas, ~400×400 px).
+- uma foto individual por integrante (quadrada, ~400×400 px), nomeada com o nome da pessoa:
+  `guilherme-pagani.jpg`, `isabela-diaz.jpg`, `joao-goncalves.jpg`, `juliana-sandes.jpg`,
+  `marcela-marques.jpg`, `maria-eloisa-da-silva.jpg`, `siraj-youssef.jpg`.
 
-Para trocar uma foto, substitua o arquivo mantendo o mesmo nome. Para incluir nomes, adicione um texto dentro de cada `<li class="face">` na seção `#equipe` do `index.html` e atualize o `alt` da imagem.
+Para trocar uma foto, substitua o arquivo mantendo o mesmo nome. Para incluir alguém, copie um bloco `<li class="face">` na seção `#equipe` do `index.html` e ajuste a foto, o `alt` e o nome.
