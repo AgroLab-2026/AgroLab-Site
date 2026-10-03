@@ -12,7 +12,6 @@ style.css           identidade visual (paleta e tipografia dos slides)
 index.js            menu, animações, vídeos sob demanda e simulação do hero
 assets/
   Logo.png
-  wave-*.mp4        ondas animadas do hero
   media/            fotos, vídeos e ícones extraídos da apresentação
   team/             fotos da equipe
 ```

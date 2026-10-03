@@ -311,41 +311,6 @@ ol {
   overflow: hidden;
 }
 
-/* Ondas animadas (vídeo -> canvas com chroma-key) */
-.wave-decor {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.55;
-}
-
-.wave-decor .wave-top-right,
-.wave-decor .wave-bottom-left {
-  position: absolute;
-  transition: transform 0.6s ease-out;
-}
-
-.wave-decor .wave-top-right {
-  top: -140px;
-  right: -120px;
-  width: 640px;
-  height: 680px;
-}
-
-.wave-decor .wave-bottom-left {
-  bottom: -160px;
-  left: -140px;
-  width: 640px;
-  height: 700px;
-}
-
-.wave-decor canvas.wave-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
 .hero-grid {
   position: relative;
   z-index: 2;
@@ -1988,19 +1953,6 @@ ol {
 
   .site-header {
     background: rgba(27, 48, 36, 0.94);
-  }
-
-  .wave-decor .wave-top-right {
-    width: 300px;
-    height: 320px;
-    top: -60px;
-    right: -90px;
-  }
-
-  .wave-decor .wave-bottom-left {
-    width: 300px;
-    height: 330px;
-    left: -110px;
   }
 
   .panel {
