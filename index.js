@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const revealTargets = document.querySelectorAll(
         '.section-head, .front-header, .problema-intro, .stats, .split > *, .fronts, .loop, .media-split, ' +
         '.components, .ia-grid, .game-frame, .game-cards, .round, .impact-grid, .equation, ' +
-        '.roadmap-scroll, .team-group, .team-faces, .closing-inner'
+        '.team-group, .team-faces, .closing-inner'
     );
     revealTargets.forEach(el => el.classList.add('reveal'));
 
@@ -101,15 +101,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     if (prefersReducedMotion) {
         videos.forEach(v => v.setAttribute('controls', ''));
-    }
-
-    /* -------------------------------------------------------
-       Roadmap: destaca o mês atual
-       ------------------------------------------------------- */
-    const now = new Date();
-    if (now.getFullYear() === 2026) {
-        document.querySelectorAll(`.roadmap-table [data-month="${now.getMonth()}"]`)
-            .forEach(cell => cell.classList.add('is-now'));
     }
 
     /* -------------------------------------------------------
