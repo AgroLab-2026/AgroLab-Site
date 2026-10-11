@@ -18,7 +18,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=202610030944">
+    <link rel="stylesheet" href="style.css?v=202610102254">
 </head>
 
 <body>
@@ -425,10 +425,47 @@
                 </div>
 
                 <div class="media-split media-split-reverse">
-                    <figure class="media-frame is-screen">
-                        <img src="assets/media/ia-eda.jpg" width="1600" height="1036"
-                            alt="Notebook de análise exploratória de dados do AgroLab, com dicionário de variáveis da cultura de morango">
-                        <figcaption>Análise exploratória dos dados que alimentam os modelos.</figcaption>
+                    <figure class="ia-visual" aria-label="Ilustração: da literatura à decisão do modelo">
+                        <ol class="ia-flow">
+                            <li><span class="ia-node"><svg class="ic"><use href="#i-book" /></svg></span>Literatura</li>
+                            <li><span class="ia-node"><svg class="ic"><use href="#i-data" /></svg></span>Dados sintéticos</li>
+                            <li><span class="ia-node"><svg class="ic"><use href="#i-ai" /></svg></span>Modelo</li>
+                            <li><span class="ia-node is-out"><svg class="ic"><use href="#i-sprout" /></svg></span>Decisão</li>
+                        </ol>
+
+                        <div class="ia-ranges">
+                            <div class="ia-ranges-head">
+                                <span>Leitura × faixa ideal</span>
+                                <span class="ia-crop"><img src="assets/media/morango.png" alt="">Morango</span>
+                            </div>
+                            <div class="range" style="--lo:30%;--hi:62%;--v:47%">
+                                <span class="range-name">pH da solução</span>
+                                <span class="range-track"><i class="range-ideal"></i><b class="range-dot"></b></span>
+                                <span class="range-tag">ok</span>
+                            </div>
+                            <div class="range" style="--lo:35%;--hi:65%;--v:55%">
+                                <span class="range-name">CE da solução</span>
+                                <span class="range-track"><i class="range-ideal"></i><b class="range-dot"></b></span>
+                                <span class="range-tag">ok</span>
+                            </div>
+                            <div class="range is-off" style="--lo:28%;--hi:58%;--v:84%">
+                                <span class="range-name">Temperatura da estufa</span>
+                                <span class="range-track"><i class="range-ideal"></i><b class="range-dot"></b></span>
+                                <span class="range-tag">alta</span>
+                            </div>
+                            <div class="range" style="--lo:40%;--hi:80%;--v:63%">
+                                <span class="range-name">Nível da água</span>
+                                <span class="range-track"><i class="range-ideal"></i><b class="range-dot"></b></span>
+                                <span class="range-tag">ok</span>
+                            </div>
+
+                            <div class="ia-result">
+                                <span>Decisão do modelo</span>
+                                <strong><svg class="ic"><use href="#i-shield" /></svg>Proteger o cultivo</strong>
+                            </div>
+                        </div>
+                        <figcaption>Exemplo ilustrativo: quando uma leitura sai da faixa ideal da cultura, o modelo
+                            escolhe a ação de manejo.</figcaption>
                     </figure>
                     <div class="note">
                         <h3>Por que dados sintéticos primeiro?</h3>
@@ -637,7 +674,7 @@
         <p class="container copyright">&copy; 2026 AgroLab. Todos os direitos reservados.</p>
     </footer>
 
-    <script src="index.js?v=202610030944"></script>
+    <script src="index.js?v=202610102254"></script>
 </body>
 
 </html>

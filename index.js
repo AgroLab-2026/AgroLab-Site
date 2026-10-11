@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
        ------------------------------------------------------- */
     const revealTargets = document.querySelectorAll(
         '.section-head, .front-header, .problema-intro, .stats, .split > *, .fronts, .loop, .media-split, ' +
-        '.components, .ia-grid, .game-frame, .game-cards, .round, .impact-grid, .equation, ' +
+        '.components, .ia-grid, .ia-visual, .game-frame, .game-cards, .round, .impact-grid, .equation, ' +
         '.team-group, .team-faces, .closing-inner'
     );
     revealTargets.forEach(el => el.classList.add('reveal'));
