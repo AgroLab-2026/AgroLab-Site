@@ -1,5 +1,20 @@
 document.documentElement.classList.add('js');
 
+/* -------------------------------------------------------
+   Abrir sempre no início da página
+   No celular, o navegador costuma restaurar a última posição
+   de rolagem ou pular para a âncora (#secao) que ficou no link.
+   ------------------------------------------------------- */
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+
+function goToTop() {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+}
+goToTop();
+window.addEventListener('load', goToTop);
+window.addEventListener('pageshow', e => { if (e.persisted) goToTop(); });
+
 document.addEventListener('DOMContentLoaded', function () {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -18,6 +33,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     hamburger.addEventListener('click', () => setMenu(!navLinks.classList.contains('active')));
     navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+
+    /* -------------------------------------------------------
+       Links internos: rolam até a seção sem colocar #secao na URL,
+       assim o link compartilhado sempre abre no início
+       ------------------------------------------------------- */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', e => {
+            const id = anchor.getAttribute('href').slice(1);
+            const target = id ? document.getElementById(id) : null;
+            if (!target) return;
+            e.preventDefault();
+            target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+            if (anchor.classList.contains('skip-link')) {
+                target.setAttribute('tabindex', '-1');
+                target.focus({ preventScroll: true });
+            }
+        });
+    });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
     /* -------------------------------------------------------
